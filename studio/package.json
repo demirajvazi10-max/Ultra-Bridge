@@ -1,0 +1,21 @@
+{
+  "name": "ultra-bridge-studio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy-schema": "sanity schemas deploy"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "sanity": "6.15.0",
+    "styled-components": "^6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.3",
+    "typescript": "^5"
+  }
+}

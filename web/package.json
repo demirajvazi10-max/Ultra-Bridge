@@ -1,0 +1,43 @@
+{
+  "name": "ultra-bridge-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "mock": "node mock/context-server.mjs",
+    "test:agent": "tsx scripts/agent-test.ts",
+    "test:e2e": "node scripts/e2e.mjs",
+    "test:fallback": "tsx scripts/test-fallback.ts",
+    "qa": "node scripts/qa.mjs",
+    "seed": "node ../seed/build-seed.mjs"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "3.0.118",
+    "@ai-sdk/cerebras": "2.0.81",
+    "@ai-sdk/google": "^3.0.124",
+    "@ai-sdk/groq": "3.0.66",
+    "@ai-sdk/mcp": "1.0.82",
+    "@ai-sdk/provider": "3.0.16",
+    "@ai-sdk/react": "3.0.289",
+    "ai": "6.0.286",
+    "next": "16.3.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "axe-core": "^4.13.0",
+    "groq-js": "^2.0.0",
+    "playwright-core": "^1.63.0",
+    "tsx": "^4.23.13",
+    "typescript": "^5"
+  }
+}
