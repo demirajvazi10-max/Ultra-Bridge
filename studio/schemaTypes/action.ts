@@ -9,6 +9,7 @@ export const CATEGORIES = [
   'tables',
   'search',
   'system',
+  'cursors-and-review',
 ]
 
 export const action = defineType({

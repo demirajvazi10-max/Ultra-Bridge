@@ -35,7 +35,7 @@ Check the import:
 npx sanity documents query "count(*[_type=='command'])"
 ```
 
-It should print 120 (or the current number in `seed/build-seed.mjs` output).
+It should print 127 (or the current number in `seed/build-seed.mjs` output).
 
 ## 2. Knowledge Base (guides)
 

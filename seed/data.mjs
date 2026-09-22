@@ -91,6 +91,13 @@ export const sources = [
     firstParty: false,
     url: 'https://accessibility.psu.edu/software/jawscommands',
   },
+  {
+    id: 'nvda-key-commands',
+    title: 'NVDA Commands Quick Reference',
+    publisher: 'NV Access',
+    firstParty: true,
+    url: 'https://www.nvaccess.org/files/nvda/documentation/keyCommands.html',
+  },
 ]
 
 // Command tuple: [layout, keys, verification, sources[], note?, context?]
@@ -749,6 +756,55 @@ export const actions = [
     jaws: [[both, 'Shift+F3', 'F', ['fs-keystrokes']]],
     nvda: [[both, 'NVDA+Shift+F3', 'F', ['nvda-wiki-switching']]],
   },
+  {
+    id: 'switch-independent-cursor',
+    title: 'Switch to the independent reading cursor',
+    category: 'cursors-and-review',
+    description:
+      'Moves to a cursor that reads the screen independently of the system focus and caret, and back again.',
+    phrases: ['jaws cursor', 'independent cursor', 'screen review', 'object navigation cursor', 'review cursor'],
+    jaws: [
+      [
+        D,
+        'Num Pad Minus',
+        'F',
+        ['fs-keystrokes'],
+        'Activates the JAWS cursor: a reading cursor moved with the numpad arrows, independent of the PC cursor. Num Pad Plus switches back to the PC cursor.',
+      ],
+      [L, 'CapsLock+P', 'F', ['fs-keystrokes'], 'Laptop layout. CapsLock+Semicolon switches back to the PC cursor.'],
+    ],
+    nvda: [
+      [
+        D,
+        'NVDA+Numpad7',
+        'F',
+        ['nvda-key-commands'],
+        'Cycles to the next review mode: object, document, then screen review. Screen review is the closest match to the JAWS cursor. NVDA+Numpad1 cycles backwards. Unlike JAWS, NVDA keeps following your typing the whole time.',
+      ],
+      [L, 'NVDA+Page Up', 'F', ['nvda-key-commands'], 'Cycles to the next review mode; NVDA+Page Down cycles backwards.'],
+    ],
+  },
+  {
+    id: 'switch-touch-cursor',
+    title: 'Turn on the touch cursor',
+    category: 'cursors-and-review',
+    description:
+      'Switches to a cursor made for exploring a touchscreen by touch instead of the numpad or arrow keys.',
+    phrases: ['touch cursor', 'touchscreen mode', 'explore by touch'],
+    jaws: [
+      [D, 'Shift+Num Pad Plus', 'F', ['fs-keystrokes'], 'Turns on the JAWS touch cursor for touchscreen Windows devices.'],
+      [L, 'CapsLock+Shift+Semicolon', 'F', ['fs-keystrokes']],
+    ],
+    nvda: [
+      [
+        both,
+        'No key needed',
+        'F',
+        ['nvda-wiki-switching'],
+        "NVDA turns on touch interaction by itself on a touchscreen device; explore with object navigation and touch gestures once it is active.",
+      ],
+    ],
+  },
 ]
 
 // Terminology and feature equivalents. `terms` = [readerId, term, note?]
@@ -888,6 +944,26 @@ export const concepts = [
     relatedActions: [],
     sources: ['nvda-wiki-switching'],
   },
+  {
+    id: 'cursor-types',
+    title: 'Cursor and review mode terms',
+    definition:
+      'JAWS names distinct cursors for different reading tasks: a PC cursor for normal reading, a JAWS cursor for reading independently of focus, and a touch cursor for touchscreens. NVDA keeps one system focus and caret always active, and adds review modes and object navigation on top instead of switching cursors off.',
+    terms: [
+      ['jaws', 'PC Cursor', 'The default cursor; follows the system focus and caret, restored with Num Pad Plus.'],
+      ['jaws', 'JAWS Cursor', 'An independent reading cursor moved with the numpad, turned on with Num Pad Minus.'],
+      ['jaws', 'Touch Cursor', 'For touchscreen Windows devices, turned on with Shift+Num Pad Plus.'],
+      ['nvda', 'System focus and caret', 'What NVDA reads by default; always active, the equivalent of the JAWS PC cursor.'],
+      [
+        'nvda',
+        'Review cursor and review modes',
+        'Reads independently of focus in Object, Document or Screen review; Screen review is closest to the JAWS cursor. Cycled with NVDA+Numpad7.',
+      ],
+      ['nvda', 'Touch mode', 'Turns on by itself on a touchscreen device; no key needed.'],
+    ],
+    relatedActions: ['switch-independent-cursor', 'switch-touch-cursor'],
+    sources: ['nvda-wiki-switching', 'fs-keystrokes', 'nvda-key-commands'],
+  },
 ]
 
 // Things that will trip up someone who moves from one to the other.
@@ -1016,6 +1092,17 @@ export const differences = [
       'JAWS treats Insert or CapsLock as the JAWS key. NVDA uses Insert by default and can also use CapsLock. Pressing the NVDA key twice quickly gives you the original function of the key.',
     workaround: 'Enable CapsLock as an NVDA key in NVDA settings if you prefer it.',
   },
+  {
+    id: 'cursor-switch-vs-review-mode',
+    title: 'JAWS switches cursors off; NVDA keeps following you',
+    severity: 'medium',
+    readers: ['jaws', 'nvda'],
+    actions: ['switch-independent-cursor'],
+    summary:
+      'In JAWS, turning on the JAWS cursor with Num Pad Minus stops the PC cursor from following your typing until you switch back with Num Pad Plus. In NVDA, cycling review modes with NVDA+Numpad7 only changes what the review commands read; NVDA keeps tracking your system focus and caret the whole time, so typing and normal navigation are never interrupted.',
+    workaround:
+      'In NVDA, cycle back to Document review with NVDA+Numpad7 or NVDA+Numpad1 when you want the review cursor to match your focus again, or just keep typing — NVDA never disconnected from it.',
+  },
 ]
 
 // Long-form guides. These are also written to markdown files and imported into the Knowledge Base.
@@ -1130,6 +1217,24 @@ Some commands are identical in both layouts. Others change. For Say All, JAWS us
 For reading the current line, JAWS uses Insert+Up Arrow or CapsLock+I, and NVDA uses NVDA+Up Arrow or NVDA+L.
 
 Quick navigation letters such as H, T and B are the same in both layouts, because they do not depend on the modifier key.
+`,
+  },
+  {
+    id: 'cursors-and-review-modes',
+    title: 'The three JAWS cursors and their NVDA equivalents',
+    audience: 'JAWS user trying NVDA',
+    summary: 'What the PC cursor, JAWS cursor and touch cursor become in NVDA.',
+    relatedActions: ['switch-independent-cursor', 'switch-touch-cursor'],
+    relatedConcepts: ['cursor-types'],
+    body: `# The three JAWS cursors and their NVDA equivalents
+
+JAWS gives you three named cursors. The PC cursor is the one you use most of the time; it follows the system focus and caret, exactly like a sighted user's blinking cursor. The JAWS cursor is independent of that: turn it on with Num Pad Minus and it moves with the numpad arrows like a mouse pointer, letting you read menus, tooltips or other screen areas the PC cursor cannot reach. Switch back with Num Pad Plus. The touch cursor, turned on with Shift+Num Pad Plus, is for exploring a Windows touchscreen device by touch instead of the keyboard.
+
+NVDA does not have three separate cursors to switch between. The system focus and caret are always active in NVDA, the same as the JAWS PC cursor, and NVDA never turns that off. On top of that, NVDA offers review modes: Object review, Document review and Screen review, cycled with NVDA+Numpad7 (backwards with NVDA+Numpad1). Screen review is the closest match to the JAWS cursor, since it lets you read anything on screen regardless of what has focus. Object navigation, moved with NVDA+Numpad4, 6, 8 and 2, walks through the accessibility tree of buttons, panes and other controls, which is the other half of what the JAWS cursor is used for.
+
+The touch cursor has no separate switch in NVDA. Touch interaction turns on by itself on a touchscreen device, and the same object navigation commands work through touch gestures once it is active.
+
+The one habit to unlearn: in JAWS, activating the JAWS cursor disconnects the PC cursor from your typing until you switch back. In NVDA, cycling review modes never disconnects anything, so you can review the screen and keep typing without switching back afterward.
 `,
   },
 ]

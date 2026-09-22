@@ -37,7 +37,7 @@ The page has example questions you can press. Open "How this was found" under an
 
 ## How I Used Sanity
 
-**Schema.** Seven document types: `screenReader`, `source`, `action`, `command`, `concept`, `difference` and `guide`. At the time of writing the dataset has 216 documents: 58 actions, 120 commands, 12 concepts, 11 differences, 6 guides and 7 sources.
+**Schema.** Seven document types: `screenReader`, `source`, `action`, `command`, `concept`, `difference` and `guide`. At the time of writing the dataset has 229 documents: 60 actions, 127 commands, 13 concepts, 12 differences, 7 guides and 8 sources.
 
 **Trust as data.** Every command has a `verification` field (`tested-by-author`, `cross-checked`, `first-party`, `third-party`, `recalled`) and references to `source` documents. The system prompt tells the agent to say so when it uses a weaker command and to point to input help (Insert+1 in JAWS, NVDA+1 in NVDA). When two sources disagree, the disagreement is written on the command instead of hidden.
 
