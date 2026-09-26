@@ -137,7 +137,10 @@ export async function connectAgent(config: AgentConfig): Promise<Connected> {
       system: buildSystemPrompt({groqContext, kbOutline}),
       tools,
       close,
-      usingKnowledgeBase: Boolean(kbOutline),
+      // The knowledge base can also be attached directly to the main endpoint (checked
+      // in the Sanity Context dashboard), in which case its tool shows up here with no
+      // separate kbUrl or outline fetch.
+      usingKnowledgeBase: Boolean(kbOutline) || 'knowledge_base_read' in tools,
     }
   } catch (err) {
     await close()
