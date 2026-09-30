@@ -4,6 +4,9 @@ Ultra Bridge helps screen reader users find, compare and translate keyboard comm
 
 Part of the Ultra suite of accessible software by Demir Ajvazi. Built for the DEV Sanity Challenge (Path One).
 
+- Live demo: https://ultra-bridge-xm71.vercel.app/
+- DEV post: https://dev.to/demirajvazi10max/ultra-bridge-translating-jaws-keyboard-commands-to-nvda-with-sanity-context-3ii
+
 ## Why structured content is required
 
 Ask a plain text search "what is the NVDA equivalent of JAWS Insert+F7" and you will get a page that mentions both. Ask it "which keys exist in both screen readers but do different jobs" and it cannot answer at all.
@@ -28,7 +31,7 @@ The queries are in `web/lib/prompt.ts`. They were run against the real dataset b
 ## Two Sanity Context modes
 
 - **GROQ mode** serves the structured dataset: screen readers, sources, actions, commands, concepts, differences and guides.
-- **Knowledge Base mode** serves prose: six guides such as "Browse mode and focus mode for JAWS users". These are imported from `seed/guides/*.md`.
+- **Knowledge Base mode** serves prose: seven guides such as "Browse mode and focus mode for JAWS users". These are imported from `seed/guides/*.md`.
 
 The agent connects to both, drops the duplicate `initial_context` tool, and inlines each initial context into its system prompt, as the Sanity documentation recommends. If the Knowledge Base is unavailable, the agent carries on with the structured data only.
 
